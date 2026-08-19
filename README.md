@@ -1,5 +1,7 @@
 # optimization-decision-models
 
+[![CI](https://github.com/pavanamthomas/optimization-decision-models/actions/workflows/ci.yml/badge.svg)](https://github.com/pavanamthomas/optimization-decision-models/actions)
+
 Mathematical optimization, operations research, decision modelling, sensitivity analysis, and numerical verification.
 
 This repository states each model as a mathematical programme, computes a solution by a declared method, and checks the reported point against the original objective and constraints. Parameters in scripts, tests, and the notebook are **illustrative**. They are not estimated from a plant, a market, or a survey.
