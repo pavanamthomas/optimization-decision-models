@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using these metadata.
+type: software
+title: optimization-decision-models
+abstract: Mathematical optimization, operations research, decision modelling, sensitivity analysis, and numerical verification.
+authors:
+  - family-names: Thomas
+    given-names: Pavanam
+    email: thomaspavanam@gmail.com
+    alias: pavanamthomas
+license: MIT
+version: 0.1.0
+date-released: "2026-08-19"
+repository-code: https://github.com/pavanamthomas/optimization-decision-models
+url: https://github.com/pavanamthomas/optimization-decision-models
+keywords:
+  - mathematical optimization
+  - operations research
+  - linear programming
+  - integer programming
+  - dynamic programming
+  - decision analysis
+  - sensitivity analysis
