@@ -71,7 +71,7 @@ def solve_knapsack(
         raise ValueError("names length must match the number of items")
 
     prob = pulp.LpProblem("project_selection", pulp.LpMaximize)
-    xs = [pulp.LpVariable(names[i], cat="Binary") for i in range(n)]
+    xs = [prob.add_variable(names[i], cat="Binary") for i in range(n)]
     prob += pulp.lpDot(v.tolist(), xs)
     prob += pulp.lpDot(w.tolist(), xs) <= float(capacity), "capacity"
     for a, b in exclusive_pairs:

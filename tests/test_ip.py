@@ -15,6 +15,7 @@ def test_solver_matches_enumeration_on_default_instance() -> None:
     enumerated = enumerate_knapsack(values, costs, budget, exclusive_pairs=pairs)
     assert solved.success
     assert knapsack_feasible(solved.x, costs, budget, exclusive_pairs=pairs)
+    assert np.max(np.abs(solved.x - np.round(solved.x))) < 1e-8
     assert np.all(np.isin(np.round(solved.x), [0.0, 1.0]))
     np.testing.assert_allclose(solved.objective, enumerated.objective, atol=1e-8)
     np.testing.assert_allclose(solved.x, enumerated.x, atol=1e-8)
