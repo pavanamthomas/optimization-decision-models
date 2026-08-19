@@ -18,10 +18,9 @@ Details: `docs/failures_and_corrections.md`.
 
 ## Open (issues)
 
-1. Multi-start is not a global certificate except on enumerated instances. Branch-and-bound for the smooth nonconvex programme is not implemented.
-2. Integer programmes larger than the enumerated knapsack are solved by CBC; independent enumeration is then impossible. A second solver for cross-check is not in the dependency list.
-3. Stochastic programmes are discrete-scenario only. Sample-average approximation with convergence diagnostics is not implemented.
-4. Network modules assume non-negative lengths (Dijkstra) and a balanced transportation tableau.
+1. Multi-start is still not a global certificate except on enumerated instances.
+2. Stochastic programmes remain discrete-scenario. Sample-average approximation with convergence diagnostics is not implemented.
+3. Dijkstra still requires non-negative lengths.
 
 ## Explicitly not in scope
 

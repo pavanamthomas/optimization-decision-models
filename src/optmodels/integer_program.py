@@ -158,3 +158,55 @@ def solve_project_selection(
         names=names,
         exclusive_pairs=exclusive_pairs,
     )
+
+
+def solve_knapsack_scipy_milp(
+    values: ArrayLike,
+    weights: ArrayLike,
+    capacity: float,
+    *,
+    exclusive_pairs: tuple[tuple[int, int], ...] = (),
+) -> IPResult:
+    """Independent 0-1 solve via ``scipy.optimize.milp``.
+
+    Used as a second solver on instances small enough that HiGHS can
+    finish. Enumeration remains the certificate on the default six-project
+    laboratory example.
+    """
+    from scipy.optimize import Bounds, LinearConstraint, milp
+
+    v = _as_vector(values)
+    w = _as_vector(weights)
+    n = v.size
+    if w.size != n:
+        raise ValueError("values and weights must have the same length")
+    rows = [w]
+    lb = [-np.inf]
+    ub = [float(capacity)]
+    for a, b in exclusive_pairs:
+        if not (0 <= a < n and 0 <= b < n and a != b):
+            raise ValueError("exclusive pair indices out of range")
+        row = np.zeros(n)
+        row[a] = 1.0
+        row[b] = 1.0
+        rows.append(row)
+        lb.append(-np.inf)
+        ub.append(1.0)
+    A = np.vstack(rows)
+    result = milp(
+        c=-v,
+        constraints=LinearConstraint(A, lb, ub),
+        integrality=np.ones(n),
+        bounds=Bounds(0.0, 1.0),
+    )
+    x = np.asarray(result.x if result.x is not None else np.zeros(n), dtype=float)
+    x = np.clip(np.round(x), 0.0, 1.0)
+    obj = float(v @ x)
+    return IPResult(
+        x=x,
+        objective=obj,
+        resource_use=float(w @ x),
+        success=bool(result.success),
+        status=str(result.message),
+        names=tuple(f"x{i}" for i in range(n)),
+    )

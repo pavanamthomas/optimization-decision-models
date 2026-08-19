@@ -50,3 +50,10 @@ def test_multi_start_finds_better_well_than_poor_local_start() -> None:
     multi = multi_start_minimize(double_well, [[-1.5], [0.0], [1.5]], jac=double_well_gradient)
     assert multi.fun <= poor.fun + 1e-10
     assert abs(float(multi.x[0]) - global_x) < 1e-5
+
+
+def test_start_in_the_good_well_recovers_the_global_minimiser() -> None:
+    global_x = double_well_global_minimizer()
+    local = minimize_unconstrained(double_well, [global_x], jac=double_well_gradient)
+    assert abs(float(local.x[0]) - global_x) < 1e-6
+    assert local.fun <= minimize_unconstrained(double_well, [1.2], jac=double_well_gradient).fun
