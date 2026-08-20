@@ -3,9 +3,9 @@
 Copyright 2026 Dr. Pavanam Thomas
 
 This checklist is the working protocol for every programme in the repository.
-It is a sequence of modelling decisions, not a list of solver flags. Shared
-methodology: Problem → formalization → assumptions → computation/estimation →
-validation → interpretation → limitations.
+It is a sequence of modelling decisions, not a list of solver flags. A
+reported optimum is not accepted until the point is substituted back into
+the original objective and constraints.
 
 Filled answers for the implemented models are in `docs/model_catalogue.md`.
 Independent numerical substitution is in `src/optmodels/checks.py`.

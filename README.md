@@ -69,11 +69,10 @@ Model-specific assumptions are in `docs/model_catalogue.md`.
 
 ## Methodology
 
-Work in this repository follows one sequence:
-
-**Problem → formalization → assumptions → computation/estimation → validation → interpretation → limitations**
-
-Optimization is **prescriptive under the model**: the output is a recommended decision *if* the programme is accepted. It is not a description of what an agent did. Descriptive work (what was chosen historically) and normative work (what the programme says to choose) are different tasks. Tests address the validation step. The catalogue addresses interpretation and limitations.
+Each programme is written as variables, a feasible set, and an objective.
+A solver status is not the validation step: the reported point is substituted
+back into the original functions (`optmodels.checks`). The catalogue records
+what the solution does and does not license.
 
 ## Contents
 

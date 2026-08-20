@@ -16,10 +16,14 @@ Current as of August 2026.
 
 Details: `docs/failures_and_corrections.md`.
 
-## Open (issues)
+## Remaining bounds
+
+Issue #3 was closed after `solve_knapsack_scipy_milp` matched enumeration
+on the default instance. Still unimplemented:
 
 1. Multi-start is still not a global certificate except on enumerated instances.
-2. Stochastic programmes remain discrete-scenario. Sample-average approximation with convergence diagnostics is not implemented.
+2. Stochastic programmes remain discrete-scenario. Sample-average approximation with convergence diagnostics is not implemented
+   ([issue #4](https://github.com/pavanamthomas/optimization-decision-models/issues/4)).
 3. Dijkstra still requires non-negative lengths.
 
 ## Explicitly not in scope
