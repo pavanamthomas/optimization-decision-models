@@ -160,3 +160,56 @@ def example_demand_scenarios() -> tuple[np.ndarray, np.ndarray]:
     demands = np.array([10.0, 20.0, 30.0])
     probabilities = np.array([0.2, 0.5, 0.3])
     return demands, probabilities
+
+
+@dataclass(frozen=True)
+class SAAResult:
+    x: float
+    saa_value: float
+    n_sample: int
+    seed: int
+    success: bool
+    feasible: bool
+    demands: np.ndarray
+    note: str
+
+
+def sample_average_newsvendor(
+    n_sample: int,
+    *,
+    demand_mean: float = 20.0,
+    demand_sd: float = 6.0,
+    unit_cost: float = 1.0,
+    holding: float = 0.4,
+    penalty: float = 3.0,
+    seed: int = 2026,
+) -> SAAResult:
+    """Sample-average approximation of the newsvendor expectation.
+
+    Demand is drawn iid Normal(mean, sd), truncated at zero. The SAA
+    programme uses equal weights 1/N on those draws. N is the sample size,
+    not a hardcoded three-scenario list. Solver success is not a statement
+    that the SAA objective has converged in N.
+    """
+    if n_sample < 2:
+        raise ValueError("n_sample must be at least 2")
+    rng = np.random.default_rng(int(seed))
+    demands = np.maximum(rng.normal(demand_mean, demand_sd, size=n_sample), 0.0)
+    probabilities = np.full(n_sample, 1.0 / n_sample)
+    res = minimize_expected_cost(demands, probabilities, unit_cost, holding, penalty)
+    lo, hi = _bounds(demands)
+    feasible = bool(lo - 1e-9 <= res.x <= hi + 1e-9)
+    return SAAResult(
+        x=float(res.x),
+        saa_value=float(res.value),
+        n_sample=int(n_sample),
+        seed=int(seed),
+        success=bool(res.success),
+        feasible=feasible,
+        demands=demands,
+        note=(
+            "SAA uses 1/N weights on N draws. Feasibility is substitution into "
+            "the sampled programme. Increasing N is a convergence diagnostic, "
+            "not implied by success=True."
+        ),
+    )

@@ -4,7 +4,7 @@ Current as of August 2026.
 
 ## In scope now
 
-- Unconstrained quadratic and multimodal local search; Cobb–Douglas demand; LP with an independently solved dual; 0–1 knapsack with enumeration on small instances; Dijkstra; transportation LP; cake-eating DP; scenario expected-cost versus maximin.
+- Unconstrained quadratic and multimodal local search; Cobb–Douglas demand; LP with an independently solved dual; 0–1 knapsack with enumeration on small instances; Dijkstra; transportation LP; cake-eating DP; scenario expected-cost versus maximin; SAA newsvendor with sample size N.
 - Independent substitution checks in `optmodels.checks` (not a second call to the same solver).
 - `MODEL_AUDIT_CHECKLIST.md` and `docs/model_catalogue.md`.
 
@@ -18,12 +18,12 @@ Details: `docs/failures_and_corrections.md`.
 
 ## Remaining bounds
 
-Issue #3 was closed after `solve_knapsack_scipy_milp` matched enumeration
-on the default instance. Still unimplemented:
+Issues #3 and #4 were closed after `solve_knapsack_scipy_milp` matched enumeration
+on the default instance and `sample_average_newsvendor` used sample size N.
+Still unimplemented:
 
 1. Multi-start is still not a global certificate except on enumerated instances.
-2. Stochastic programmes remain discrete-scenario. Sample-average approximation with convergence diagnostics is not implemented
-   ([issue #4](https://github.com/pavanamthomas/optimization-decision-models/issues/4)).
+2. SAA is illustrated for a truncated-normal newsvendor. Convergence rates and CVaR/expected-utility criteria are not implemented.
 3. Dijkstra still requires non-negative lengths.
 
 ## Explicitly not in scope

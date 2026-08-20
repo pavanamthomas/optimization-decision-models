@@ -13,7 +13,7 @@ Related work:
 
 ## Problem this repository addresses
 
-A decision is written as: choose a point in a stated domain to extremize a stated objective subject to stated constraints. The library covers unconstrained smooth programmes, equality- and inequality-constrained nonlinear programmes, linear and 0–1 integer programmes, shortest paths, transportation, finite-horizon dynamic programmes, and scenario-based choice under uncertainty.
+A decision is written as: choose a point in a stated domain to extremize a stated objective subject to stated constraints. The library covers unconstrained smooth programmes, equality- and inequality-constrained nonlinear programmes, linear and 0–1 integer programmes, shortest paths, transportation, finite-horizon dynamic programmes, scenario-based choice under uncertainty, and a sample-average newsvendor with sample size N.
 
 The scientific claim is limited: given the symbols as written, the computed point satisfies the first-order or discrete optimality conditions that the chosen method is designed to enforce, up to documented numerical tolerance. The claim is not that the same numbers should be implemented in an organisation.
 
@@ -34,7 +34,7 @@ Then `src/optmodels/` and `scripts/run_all.py`. Open work: `ROADMAP.md` and GitH
 - Reading a Lagrange multiplier or an LP dual variable as a marginal value *inside the model*
 - Checking a solver output by substituting it back into the original functions (`optmodels.checks`)
 - Enumerating a tiny discrete programme to confirm a Bellman recursion or a 0–1 knapsack
-- Separating expected-cost optimality from maximin (minimax-cost) optimality under scenarios
+- Separating expected-cost optimality from maximin (minimax-cost) optimality under scenarios, and SAA from a fixed three-scenario list
 
 ## Methods
 

@@ -8,6 +8,7 @@ A solver return is not a result until it is substituted back into the stated pro
 | Reading expected-cost quantity as a maximin hedge | The two programmes choose different points | Separate objectives | State the criterion; do not mix them | `tests/test_uncertainty.py::test_maximin_is_not_the_same_as_expected_cost` | Ambiguity aversion beyond maximin |
 | Accepting an LP point without the dual | Primal feasibility alone does not check complementary slackness | Independent dual solve; residual checks | `optmodels.checks` on the reported point | `tests/test_lp.py` | Degeneracy and multiple optima on other tableaus |
 | Treating a 0–1 CBC solution as integer without a check | Floating-point reports can look continuous | Integrality residual; enumeration on the default instance | Assert 0–1 and match enumeration | `tests/test_ip.py` | Large MIPs where enumeration is impossible |
+| Reading a three-scenario expected-cost solution as an SAA estimator | The scenario list is not a sample of size N | Compare N=6 and N=40 SAA programmes | `sample_average_newsvendor` | `tests/test_uncertainty.py::test_saa_n_is_the_sample_size_not_a_fixed_scenario_list` | SAA rates; other distributions |
 | Reporting Dijkstra on a graph with negative lengths | Algorithm assumption violated | Documented non-negativity | Refuse, or switch method | `src/optmodels/network.py` docstring; `tests/test_network.py` | Bellman–Ford is not implemented |
 
 Process: `docs/lab_process.md`. Open extensions: `ROADMAP.md`.

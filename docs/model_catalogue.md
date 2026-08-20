@@ -122,3 +122,15 @@ Related valuation identities that can appear as inner objectives:
 - **Validation.** Grid comparison: expected cost at \(x^\star\) is no worse than at neighbouring grid points; maximin worst-case cost is no worse than at those neighbours; monotonicity of \(x^\star\) in \(\pi\) on the example.
 - **Interpretation.** Two different decision criteria. Neither is a statistical forecast. A more conservative maximin quantity is a property of \(\max_s\mathrm{cost}\), not a moral claim.
 - **Limitations.** Missed scenarios are unmodelled. Risk measures other than expectation and maximin (CVaR, expected utility) are not implemented here.
+
+## 10. Sample-average newsvendor (`optmodels.uncertainty.sample_average_newsvendor`)
+
+- **Decision variables.** The same \(x\ge 0\) as the scenario programme.
+- **Parameters.** Sample size \(N\), Normal demand mean and sd (truncated at 0), \(c,h,\pi\), seed.
+- **Domain.** Bounded interval built from the sampled demands.
+- **Objective.** SAA: minimise \(N^{-1}\sum_{i=1}^N \mathrm{cost}(x,d_i)\).
+- **Assumptions.** Draws are iid from the stated truncated-normal sampling measure. \(N\) is the sample size, not a fixed three-scenario list.
+- **Solution method.** The same bounded scalar minimiser as expected-cost, with equal weights \(1/N\).
+- **Validation.** Feasibility of \(x\) in the sampled bounds; different \(N\) under the same seed are different programmes (`tests/test_uncertainty.py`).
+- **Interpretation.** An SAA point is optimal for the sampled programme. Solver `success` is not convergence in \(N\).
+- **Limitations.** No SAA rate theorem is proved. CVaR is not implemented.

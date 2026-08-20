@@ -9,6 +9,7 @@ from optmodels.uncertainty import (
     expected_cost,
     minimize_expected_cost,
     minimize_maximin_cost,
+    sample_average_newsvendor,
     sensitivity_penalty,
     worst_case_cost,
 )
@@ -40,3 +41,26 @@ def test_expected_cost_quantity_rises_with_shortage_penalty() -> None:
     _grid, xs, _vals = sensitivity_penalty(demands, probs, 1.0, 0.4, penalties)
     assert np.all(np.diff(xs) >= -1e-6)
     assert xs[-1] > xs[0] + 0.5
+
+
+def test_saa_n_is_the_sample_size_not_a_fixed_scenario_list() -> None:
+    small = sample_average_newsvendor(n_sample=6, seed=2026)
+    large = sample_average_newsvendor(n_sample=40, seed=2026)
+    assert small.n_sample == 6
+    assert large.n_sample == 40
+    assert small.demands.size == 6
+    assert large.demands.size == 40
+    assert small.x != large.x or small.saa_value != large.saa_value
+
+
+def test_saa_point_is_feasible_on_the_sampled_programme() -> None:
+    res = sample_average_newsvendor(n_sample=20, seed=7)
+    assert res.success
+    assert res.feasible
+    lo = 0.0
+    hi = float(np.max(res.demands)) * 1.5 + 1.0
+    assert lo <= res.x <= hi
+    # Solver success does not imply that two sample sizes agree.
+    other = sample_average_newsvendor(n_sample=8, seed=7)
+    assert other.success
+    assert abs(res.saa_value - other.saa_value) > 1e-8 or abs(res.x - other.x) > 1e-8
