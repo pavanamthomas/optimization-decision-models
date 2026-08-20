@@ -44,7 +44,7 @@ Then `src/optmodels/` and `scripts/run_all.py`. Open work: `ROADMAP.md` and GitH
 | Smooth unconstrained | `optmodels.unconstrained` | Analytic gradient, central-difference check, multi-start local search |
 | Cobb–Douglas demand | `optmodels.constrained` | Marshallian closed form; SLSQP on equality and inequality budget sets |
 | Linear programme | `optmodels.linear_program` | Primal via `scipy.optimize.linprog`; dual solved independently |
-| 0–1 integer | `optmodels.integer_program` | PuLP/CBC; brute-force enumeration on small instances |
+| 0–1 integer | `optmodels.integer_program` | PuLP/CBC; SciPy MILP cross-check; brute-force enumeration on small instances |
 | Shortest path | `optmodels.network` | Dijkstra (non-negative lengths; no NetworkX) |
 | Transportation | `optmodels.network` | Balanced transportation as an equality-constrained LP |
 | Dynamic programme | `optmodels.dynamic_program` | Backward Bellman recursion on a finite grid; brute-force on tiny \(T,W\) |
@@ -98,7 +98,7 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
 ```
 
-Dependencies are `numpy`, `scipy`, `matplotlib`, `pulp`, and (for tests) `pytest`. Integer programmes use PuLP's bundled CBC interface.
+Dependencies are `numpy`, `scipy`, `matplotlib`, `pulp`, and (for tests) `pytest`. Integer programmes use PuLP's bundled CBC interface; the default knapsack is also solved with `scipy.optimize.milp` and checked against enumeration.
 
 ## Reproducing the demonstrations
 
@@ -121,7 +121,7 @@ Tests are written as properties the mathematics requires:
 - Cobb–Douglas numerical demand exhausts the budget and matches Marshallian shares \(x_1=\alpha m/p_1\).
 - A binding consumption floor produces a boundary solution with slack-free budget.
 - The LP primal is feasible and the independently solved dual matches the primal objective (strong duality in the example).
-- The integer solution is binary and feasible; on a small knapsack it matches complete enumeration.
+- The integer solution is binary and feasible; on a small knapsack PuLP, SciPy MILP, and complete enumeration agree.
 - Dijkstra distances match a hand-computed graph with non-negative lengths.
 - The transportation plan meets supply and demand and attains the LP objective.
 - The cake-eating Bellman value matches brute-force enumeration on a tiny state space.
