@@ -17,7 +17,7 @@ A decision is written as: choose a point in a stated domain to extremize a state
 
 The scientific claim is limited: given the symbols as written, the computed point satisfies the first-order or discrete optimality conditions that the chosen method is designed to enforce, up to documented numerical tolerance. The claim is not that the same numbers should be implemented in an organisation.
 
-## What to inspect first
+## Reading order
 
 If the goal is to see how the work is specified and checked, read in this order:
 
