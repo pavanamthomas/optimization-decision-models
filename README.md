@@ -25,9 +25,9 @@ If the goal is to see how the work is specified and checked, read in this order:
 2. `MODEL_AUDIT_CHECKLIST.md` — questions that must be answered for every model
 3. `docs/model_catalogue.md` — decision variables, parameters, domain, objective, constraints, assumptions, method, validation, interpretation, limitations
 
-Then `src/optmodels/` and `scripts/run_all.py`. Open work: `ROADMAP.md` and GitHub Issues. Recorded failures: `docs/failures_and_corrections.md`.
+Then `src/optmodels/` and `scripts/run_all.py`. Remaining bounds: `ROADMAP.md` (issues #3 and #4 are closed). Recorded failures: `docs/failures_and_corrections.md`.
 
-## Skills
+## What is exercised
 
 - Translating a verbal allocation or routing task into variables, a feasible set, and an objective
 - Distinguishing convex quadratic programmes with a unique minimizer from multimodal local search
